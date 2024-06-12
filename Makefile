@@ -1,5 +1,5 @@
 CC := clang
-LD := lld
+LD := /usr/local/Cellar/llvm/18.1.7/bin/lld
 ARCH ?= x86-64
 
 ifeq ($(ARCH),x86-64)
@@ -15,7 +15,7 @@ SRCS := main.c clib.c io.c loader.c config.c log.c kernel.c
 default: all
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -Wno-strict-prototypes -c $< -o $@
 
 boot.efi: clib.o io.o loader.o config.o log.o main.o
 	$(LD) $(LDFLAGS) $^ -out:$@
